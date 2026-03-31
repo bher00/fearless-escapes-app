@@ -1,0 +1,80 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+YELLOW='\033[0;33m'
+
+NOSTAGED=(
+    "No staged files. Git is just standing there like: 'Bro… you forgot the files.'"
+    "No staged files. You’re trying to commit vibes, not code."
+    "No files staged. Git’s waiting. You’re waiting. Everyone’s awkwardly waiting."
+    "Git says: ‘Nice commit message, shame there’s nothing to commit.’"
+    "No staged files detected. Your commit is emptier than my fridge at 3 AM."
+    "Nothing to stage. Git’s looking at you like: ‘You doin’ anything or just vibin’?’"
+    "You forgot to add files. Git’s not mad, just… disappointed."
+    "No staged files. Git is quietly judging your life choices."
+    "Nothing staged. Did you forget to add, or are you just manifesting code now?"
+    "No staged files found. Are you trying to gaslight Git? 'Cause it’s not buying it."
+)
+
+if [ -z "$(git diff --cached --name-only)" ]; then
+  echo -e "
+  ⚠️  ⚠️  ⚠️ ${YELLOW} ${NOSTAGED[(($RANDOM % 10 + 0))]}${NC} ⚠️  ⚠️  ⚠️
+  "
+  exit 0
+fi
+
+COMMIT=(
+    "Summoning the Git gods… your commit has been blessed." 
+    "Bribing Git to accept your masterpiece…" 
+    "Initiating commit: May the bugs be ever in your favor." 
+    "Compiling courage… okay, now committing!" 
+    "Preparing your code for eternal judgment." 
+    "Uploading your genius to the cloud where it will totally work, probably." 
+    "Committing sins… I mean, code." 
+    "Unleashing your code onto the unsuspecting repository…"
+    "Sending your commit into the danger zone… let’s see if it survives."
+    "Putting your commit through the wringer—hope it’s soaked in awesomeness."
+)
+echo -e "
+🚀 ✝️  🙏 ${YELLOW} ${COMMIT[(($RANDOM % 10 + 0))]} ${NC} 🚀 ✝️  🙏
+"
+
+
+ERROR=(
+    "Commit rejected. Your code was last seen screaming into the void. Please send thoughts and prayers."
+    "ERROR: Your commit failed so hard it applied for early retirement."
+    "Your commit walked into the repo, looked around, and said, ‘Nah, I’m out.’"
+    "Commit failed. It saw the test suite and spontaneously combusted."
+    "Commit status: 404 – Success not found. Try petting your rubber duck for answers."
+    "Your commit has been placed in witness protection for crimes against syntax."
+    "The commit failed. Not even Stack Overflow can save it now."
+    "Commit didn’t pass. It tripped over a missing semicolon and died dramatically."
+    "Your commit threw an error so savage, even Git refused to remember it."
+    "Result: Epic Fail. Your commit is now being used as a warning to others."
+)
+
+npx lint-staged || {
+    echo -e "🚨 ❌ 💥 ${RED} ${ERROR[(($RANDOM % 10 + 0))]} 🚨 ❌ 💥
+    ${NC}";
+    false;
+}
+
+SUCCESS=(
+    "It committed successfully... but will it push? Or will Git hit me with a 500 Internal Sadness?"
+    "It committed, sure. But will it push, or will it gaslight me into thinking I never coded at all?"
+    "It committed successfully. Now let’s see if Git pushes — or files for emotional distress."
+    "It committed... but will it push? Or will Git tell me I’m 47 commits behind and my branch is haunted?"
+    "It committed successfully, but will it push? Git be like, ‘Bold of you to assume that.’"
+    "It committed... but will it push? Git might just say ‘Nah, I’m feeling mysterious today.’"
+    "It committed successfully. Which means nothing. Git’s like, ‘I said yes to the commit, not the relationship.’"
+    "It committed, but pushing is another trust fall I’m not ready for."
+    "It committed, but will it push? Only the Git gods and a blood sacrifice will decide."
+    "It committed successfully. Now we roll for initiative and pray the push check passes."
+)
+
+echo -e "
+🤯 🔥 🙏🏿 👏 ${GREEN} ${SUCCESS[(($RANDOM % 10 + 0))]} 🤯 🔥 🙏🏿 👏 ${NC}
+"
